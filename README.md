@@ -1,10 +1,13 @@
 # probrecsys
 problem recommendation system for online judge
 
-#usage
-run :
-pip install -r requirement.txt
+### Installation
+```sh
+$ cd probrecsys
+$ pip install -r requirement.txt
+```
 
-open recommend.py edit username and password for database
-run :
-python recommened.py 
+next open recommend.py edit username and password for database
+```sh
+$ python recommened.py 
+```
