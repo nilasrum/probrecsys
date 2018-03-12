@@ -2,6 +2,7 @@ from prep_matrix import PrepMatrix
 from operator import itemgetter
 import os
 import dbhandler
+from terminaltables import SingleTable
 
 
 class bcolors:
@@ -87,17 +88,17 @@ def main():
         if p == "exit":
             break
         obj = Recommend(db, int(p))
-        pl = []
+        data = [[bcolors.WARNING+"pid"+bcolors.ENDC,bcolors.WARNING+"Title"+bcolors.ENDC]]
         for p in obj.rec_prob:
             query = "SELECT name FROM problems WHERE pid=" + str(p["pid"])
             pname = dbhandler.parse_db(db, query)
-            temp = dict()
-            temp["name"] = pname[0][0]
-            temp["pid"] = p["pid"]
-            pl.append(temp)
-        print bcolors.WARNING + "Recommended problems : " + bcolors.ENDC
-        for p in pl:
-            print p["pid"], ":", p["name"]
+            temp = [p["pid"],pname[0][0]]
+            data.append(temp)
+        table = SingleTable(data)
+        table.inner_row_border = True
+        table.justify_columns={1:"center"}
+        print bcolors.CYAN + "Recommended problems : " + bcolors.ENDC
+        print table.table
         print "\n"
     dbhandler.disconnect_db_judge(db)
 
